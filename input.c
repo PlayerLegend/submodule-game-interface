@@ -1,15 +1,7 @@
-#include <assert.h>
-#include <stdbool.h>
-#include "../../glad/include/glad/glad.h"
-#include <GLFW/glfw3.h>
-#define FLAT_INCLUDES
-#include "../vec/vec.h"
-#include "../vec/vec2.h"
-#include "../vec/vec3.h"
-#include "button-id.h"
-#include "window.h"
 #include "input.h"
 #include "../log/log.h"
+#include "../glad/glad.h"
+#include <GLFW/glfw3.h>
 
 typedef struct {
     ui_input_event_keyboard_button_callback callback;

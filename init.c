@@ -1,9 +1,8 @@
 #ifndef FLAT_INCLUDES
 #include <stdbool.h>
-#include "../../glad/include/glad/glad.h"
+#include "../glad/glad.h"
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
-#define FLAT_INCLUDES
 #include "window.h"
 #include "../log/log.h"
 #endif

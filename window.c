@@ -1,44 +1,55 @@
-#ifndef FLAT_INCLUDES
-#include <stdbool.h>
-#include "../../glad/include/glad/glad.h"
+#include "window.h"
+#include "../glad/glad.h"
 #include <GLFW/glfw3.h>
-#include <stdlib.h>
-#define FLAT_INCLUDES
+#include "../log/log.h"
 #include "../vec/vec.h"
 #include "../vec/vec2.h"
-#include "window.h"
 #include "button-id.h"
 #include "input.h"
-#include "../log/log.h"
-#endif
+#include <assert.h>
 
-ui_window * ui_window_new ()
+keyargs_define(ui_window_new)
 {
+    assert (args.width);
+    assert (args.height);
+    assert (args.result);
+    
     glfwWindowHint(GLFW_SAMPLES, 4);
     glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     
-    GLFWwindow * new_window = glfwCreateWindow (640, 480, "Test window", NULL, NULL);
+    GLFWwindow * new_window = glfwCreateWindow (args.width, args.height, args.title ? args.title :"Test window", NULL, NULL);
 
     if (!new_window)
     {
-	log_error ("Failed to create a window");
+	log_fatal ("Failed to create a window");
     }
 
     glfwMakeContextCurrent (new_window);
 
     if (!gladLoadGL())
     {
-	log_normal ("glad failed to load GL");
-	glfwDestroyWindow (new_window);
-	return NULL;
+	log_fatal ("glad failed to load GL");
     }
     
     ui_input_init_window ((ui_window*)new_window);
 
-    return (ui_window*) new_window;
+    *args.result = (ui_window*) new_window;
+    
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
+    
+    return true;
+
+fail:
+    if (new_window)
+    {
+	glfwDestroyWindow (new_window);
+    }
+    
+    return false;
 }
 
 bool ui_window_should_close (ui_window * window)

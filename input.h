@@ -1,11 +1,8 @@
 #ifndef FLAT_INCLUDES
-#include <stdbool.h>
-#define FLAT_INCLUDES
+#include "window.h"
 #include "../vec/vec.h"
 #include "../vec/vec2.h"
-#include "../vec/vec3.h"
 #include "button-id.h"
-#include "window.h"
 #endif
 
 typedef struct {
