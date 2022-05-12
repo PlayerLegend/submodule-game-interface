@@ -5,8 +5,10 @@
 int main(int argc, char * argv[])
 {
     assert (ui_init());
+
+    ui_window * window;
     
-    ui_window * window = ui_window_new(.xres = 640, .yres = 480, .title = argv[0]);
+    assert (ui_window_new(.result = &window, .width = 640, .height = 480, .title = argv[0]));
 
     while (!ui_window_should_close(window))
     {
