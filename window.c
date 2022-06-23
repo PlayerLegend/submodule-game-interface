@@ -61,6 +61,7 @@ bool ui_window_should_close (ui_window * window)
 void ui_window_swap (ui_window * window)
 {
     glfwSwapBuffers ((GLFWwindow*)window);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void ui_window_destroy (ui_window * window)
